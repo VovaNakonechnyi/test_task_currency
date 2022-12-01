@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.my-1 {
+  margin-bottom: remSize(8px) !important;
+  margin-top: remSize(8px) !important;
+}
+.my-2 {
+  margin-bottom: remSize(16px) !important;
+  margin-top: remSize(16px) !important;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: remSize(-15px);
+  margin-left: remSize(-15px);
+}
+.col {
+  width: 100%;
+  padding-right: remSize(15px);
+  padding-left: remSize(15px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: remSize(10px);
+  position: relative;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $white-color;
+  background-clip: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.065);
+  border-radius: 0.25rem;
+}
+
+.form-item {
+  display: block;
+  width: 100%;
+  padding: remSize(5px);
+  font-size: remSize(17px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $neutral-dark-grey-color;
+  background-color: $white-color;
+  background-clip: padding-box;
+  border: 1px solid $primary-white-color;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

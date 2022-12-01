@@ -1,0 +1,16 @@
+@function remSize($size) {
+  @return $size / 16px * 1rem;
+}
+
+// Media
+@mixin media-max($size) {
+  @media screen and (max-width: map-get($grid-breakpoints, $size)) {
+    @content;
+  }
+}
+
+@mixin media($size) {
+  @media screen and (min-width: map-get($grid-breakpoints, $size)) {
+    @content;
+  }
+}
