@@ -89,8 +89,8 @@ import CustomLoader from "@/components/shared/CustomLoader";
 import CustomSelect from "@/components/shared/CustomSelect";
 import CustomBtn from "@/components/shared/CustomBtn";
 import CustomModal from "@/components/shared/CustomModal";
-import CustomInput from "./shared/CustomInput";
-import CustomError from "./shared/CustomError";
+import CustomInput from "@/components/shared/CustomInput";
+import CustomError from "@/components/shared/CustomError";
 import CurrencyList from "@/components/CurrencyList";
 
 import { ICurrency, ICurrencySymbolsRespData } from "@/interfaces/currency";

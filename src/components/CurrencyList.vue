@@ -21,7 +21,7 @@
       </div>
       <div v-if="currency.added" class="list__btn-remove">
         <button
-          class="button-34"
+          class="close-btn"
           role="button"
           @click="$emit('remove', currency.value)"
         >
@@ -125,26 +125,18 @@ defineEmits<{
   }
 }
 
-/* CSS */
-.button-34 {
+.close-btn {
   background: $red-color;
-  border-radius: 59px;
+  border-radius: remSize(59px);
   box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji",
-    NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji",
-    EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
-    "Noto Sans", sans-serif;
-  font-size: 16px;
+  color: $white-color;
+  font-size: remSize(16px);
   font-weight: 700;
-  line-height: 24px;
+  cursor: pointer;
+  line-height: remSize(24px);
   opacity: 1;
   outline: 0 solid transparent;
-  padding: 8px 18px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  padding: remSize(8px) remSize(18px);
   width: fit-content;
   word-break: break-word;
   border: 0;
