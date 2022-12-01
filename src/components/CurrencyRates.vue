@@ -70,7 +70,7 @@
             </CustomBtn>
           </div>
         </div>
-        <div v-if="error.length" class="row">
+        <div v-if="error.length" class="row my-1">
           <div class="col">
             <CustomError :error="error" />
           </div>
@@ -243,7 +243,7 @@ const checkCurrencyInList = (
   width: 50%;
 }
 .currency-list-wrapper {
-  width: 50%;
+  width: 40%;
 }
 .btn-update-wrapper {
   width: 25%;
@@ -258,6 +258,9 @@ const checkCurrencyInList = (
   width: 50%;
 }
 @include media-max(xxl) {
+  .currency-list-wrapper {
+    width: 50%;
+  }
   .btn-update-wrapper {
     width: 30%;
   }

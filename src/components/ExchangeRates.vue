@@ -138,7 +138,7 @@ const actionConvertCurrency = async (
 .input-fields-wrappper {
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 35%;
 }
 @include media-max(xxl) {
   .currency-exchange {

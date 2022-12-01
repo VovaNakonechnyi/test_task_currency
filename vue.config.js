@@ -1,5 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
+  publicPath: "/test_task_currency/",
   transpileDependencies: true,
   css: {
     loaderOptions: {
