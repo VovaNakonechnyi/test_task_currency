@@ -23,7 +23,7 @@
           </div>
         </div>
         <div v-else class="row my-1">
-          <div class="col">
+          <div class="col list-wrapper">
             <CurrencyList
               :currency-list="currenciesList"
               @remove="removeCurrency"
@@ -120,6 +120,9 @@ const currencyListValue = ["USD", "EUR", "UAH", "BTC", "ETH"];
 let currencySelector = getNeededCurrincies(currency, ["USD", "EUR", "UAH"]);
 let currenciesList = ref(getNeededCurrincies(currency, currencyListValue));
 
+if (!checkLocalStorage("newCurrencies"))
+  setIntoLocalStorage("newCurrencies", []);
+
 if (isFirstLoading.value) {
   addingLocStorageListToDef();
 }
@@ -130,17 +133,13 @@ function addingLocStorageListToDef() {
   isFirstLoading.value = false;
 }
 
-const removeCurrency = (removeCurrency: string) => {
+const removeCurrency = (id: number) => {
   let currencies: ICurrency[] = checkLocalStorage("newCurrencies");
-  currenciesList.value = currenciesList.value.filter(
-    (item: ICurrency) =>
-      item.value.toLowerCase() !== removeCurrency.toLowerCase()
-  );
   if (!currencies) return;
-  currencies = currencies.filter(
-    (item: ICurrency) =>
-      item.value.toLowerCase() !== removeCurrency.toLowerCase()
+  currenciesList.value = currenciesList.value.filter(
+    (item: ICurrency) => item.id !== id
   );
+  currencies = currencies.filter((item: ICurrency) => item.id !== id);
   setIntoLocalStorage("newCurrencies", currencies);
 };
 
@@ -166,6 +165,9 @@ fetchList();
 
 const addCurrenciesToList = async () => {
   isLoadingCurrency.value = true;
+  if (!checkLocalStorage("newCurrencies")) {
+    setIntoLocalStorage("newCurrencies", []);
+  }
   if (newCurrency.value.length !== 3) {
     isLoadingCurrency.value = false;
     error.value = "Needed 3 letters.";
@@ -181,6 +183,15 @@ const addCurrenciesToList = async () => {
     error.value = "This currency isn't.";
     return;
   }
+  isCurrency.value = checkCurrencyInList(
+    newCurrency.value,
+    checkLocalStorage("newCurrencies"),
+    currenciesList.value
+  );
+  if (isCurrency.value) {
+    isLoadingCurrency.value = false;
+    return;
+  }
   const currencyObject: ICurrency = reactive({
     id: getRandomNumber(1, 10000000),
     value: newCurrency.value.toUpperCase(),
@@ -189,50 +200,36 @@ const addCurrenciesToList = async () => {
     added: true,
   });
   addCurrencyToLocStorage(currencyObject);
-  if (!isCurrency.value) {
-    currenciesList.value.push(currencyObject);
-    await fetchList().then(() => {
-      isLoadingCurrency.value = false;
-      error.value = "";
-    });
-  }
-};
-const addCurrencyToLocStorage = (currencyObject: ICurrency): void => {
-  isCurrency.value = false;
-  const currencies: ICurrency[] = checkLocalStorage("newCurrencies");
-  if (currencies) {
-    isCurrency.value = checkCurrencyInList(
-      newCurrency.value,
-      currencies,
-      currencyListValue
-    );
-    if (isCurrency.value) {
-      isLoadingCurrency.value = false;
-      error.value = "This currency is in list";
-      return;
-    }
-    currencies.push(currencyObject);
-    setIntoLocalStorage("newCurrencies", currencies);
+  currenciesList.value.push(currencyObject);
+  await fetchList().then(() => {
+    isLoadingCurrency.value = false;
+    error.value = "";
     newCurrency.value = "";
     error.value = "";
-    return;
-  }
-  setIntoLocalStorage("newCurrencies", [currencyObject]);
-  newCurrency.value = "";
+  });
+};
+const addCurrencyToLocStorage = (currencyObject: ICurrency): void => {
+  const currencies: ICurrency[] = checkLocalStorage("newCurrencies");
+  currencies.push(currencyObject);
+  setIntoLocalStorage("newCurrencies", currencies);
+  return;
 };
 
 const checkCurrencyInList = (
   currency: string,
   localStorageCurrencies: ICurrency[],
-  currenciesDefList: string[]
+  currenciesDefList: ICurrency[]
 ) => {
   const isInLocal = !!localStorageCurrencies.find(
     (item) => item.value.toLowerCase() === currency.toLowerCase()
   );
   const isInDef = !!currenciesDefList.find(
-    (item) => item.toLowerCase() === currency.toLowerCase()
+    (item) => item.value.toLowerCase() === currency.toLowerCase()
   );
-  if (isInLocal || isInDef) return true;
+  if (isInLocal || isInDef) {
+    error.value = "This currency is in list";
+    return true;
+  }
   return false;
 };
 </script>
@@ -247,6 +244,10 @@ const checkCurrencyInList = (
 }
 .btn-update-wrapper {
   width: 25%;
+}
+.list-wrapper {
+  height: 450px;
+  overflow-y: scroll;
 }
 .btn-add_currency-wrapper {
   width: 15%;

@@ -74,7 +74,7 @@ watch(give, pasteGet);
 watch(get, pasteGive);
 
 async function pasteGive() {
-  if (!giveAmount.value) {
+  if (giveAmount.value * 1 === 0 || !giveAmount.value) {
     getAmount.value = 0;
     return;
   }
@@ -98,8 +98,8 @@ async function pasteGive() {
 }
 
 async function pasteGet() {
-  if (!getAmount.value) {
-    giveAmount.value = 0;
+  if (getAmount.value * 1 === 0 || !getAmount.value) {
+    getAmount.value = 0;
     return;
   }
   const convertRes: ICurrencyConvertRespData = await actionConvertCurrency({

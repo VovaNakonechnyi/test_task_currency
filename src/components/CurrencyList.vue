@@ -23,7 +23,7 @@
         <button
           class="close-btn"
           role="button"
-          @click="$emit('remove', currency.value)"
+          @click="$emit('remove', currency.id)"
         >
           x
         </button>
