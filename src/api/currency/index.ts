@@ -6,7 +6,7 @@ import {
 } from "@/interfaces/currency";
 
 const myHeaders = new Headers();
-myHeaders.append("apikey", "nMhWshSZVyMskEqwNIUv7UynftzGYVSg");
+myHeaders.append("apikey", "RYYuNpRnZ0aCmLxP2BLkYmj6mqkMfpQc");
 
 const requestOptions = {
   methood: "GET",
